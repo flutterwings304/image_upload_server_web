@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 
 uploadFile() async {
   Reference _reference =
@@ -38,4 +39,25 @@ dynamic pickFiles() async {
 
     return result.files.first.bytes;
   };
+}
+
+class ImageUpload extends StatelessWidget {
+  const ImageUpload({ Key? key }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Image Upload'),
+      ),
+      body: Center(
+        child: RaisedButton(
+          onPressed: () {
+            uploadFile();
+          },
+          child: Text('Upload'),
+        ),
+      ),
+    );
+  }
 }

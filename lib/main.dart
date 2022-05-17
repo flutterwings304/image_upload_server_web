@@ -1,7 +1,26 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'firebase_upload.dart';
+
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  if (kIsWeb) {
+    await Firebase.initializeApp(
+        options: const FirebaseOptions(
+       apiKey: "AIzaSyAdVvcEKHQvLLHkGEsIZmhV_mOn0pfWqNQ",
+  authDomain: "image-upload-on-web.firebaseapp.com",
+  projectId: "image-upload-on-web",
+  storageBucket: "image-upload-on-web.appspot.com",
+  messagingSenderId: "902362392013",
+  appId: "1:902362392013:web:354fbea39bc697eef1d084",
+  measurementId: "G-T213PP9H67"));
+  } else {
+    await Firebase.initializeApp();
+
+    runApp(const MyApp());
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -24,7 +43,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const ImageUpload(),
     );
   }
 }
