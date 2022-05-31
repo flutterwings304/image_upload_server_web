@@ -1,21 +1,20 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-import 'firebase_upload.dart';
+import 'package:image_upload_server_web/firebase_upload.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if (kIsWeb) {
     await Firebase.initializeApp(
         options: const FirebaseOptions(
-       apiKey: "AIzaSyAdVvcEKHQvLLHkGEsIZmhV_mOn0pfWqNQ",
-  authDomain: "image-upload-on-web.firebaseapp.com",
-  projectId: "image-upload-on-web",
-  storageBucket: "image-upload-on-web.appspot.com",
-  messagingSenderId: "902362392013",
-  appId: "1:902362392013:web:354fbea39bc697eef1d084",
-  measurementId: "G-T213PP9H67"));
+            apiKey: "AIzaSyAdVvcEKHQvLLHkGEsIZmhV_mOn0pfWqNQ",
+            authDomain: "image-upload-on-web.firebaseapp.com",
+            projectId: "image-upload-on-web",
+            storageBucket: "image-upload-on-web.appspot.com",
+            messagingSenderId: "902362392013",
+            appId: "1:902362392013:web:354fbea39bc697eef1d084",
+            measurementId: "G-T213PP9H67"));
   } else {
     await Firebase.initializeApp();
 
@@ -29,6 +28,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    precacheImage(
+        const NetworkImage(
+            "https://avatars.githubusercontent.com/u/105340872?v=4"),
+        context);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(

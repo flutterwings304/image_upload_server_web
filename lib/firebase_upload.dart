@@ -6,10 +6,18 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 uploadFile() async {
+  final result = await FilePicker.platform.pickFiles(
+    type: FileType.any,
+  );
+  if (result == null) {
+    return;
+  }
+  print(result.files.first);
+  final data = result.files.first.bytes;
   Reference _reference =
       FirebaseStorage.instance.ref().child("Testimonials/${"gh"}");
-  final data = pickFiles();
-  await _reference.putData(data).whenComplete(() async {
+
+  await _reference.putData(data!).whenComplete(() async {
     await _reference.getDownloadURL().then((url) {});
   });
 }
@@ -29,33 +37,25 @@ Future uploadOnServer(
 }
 
 dynamic pickFiles() async {
-  () async {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.any,
-    );
-    if (result == null) {
-      return null;
-    }
-
-    return result.files.first.bytes;
-  };
+  () async {};
 }
 
 class ImageUpload extends StatelessWidget {
-  const ImageUpload({ Key? key }) : super(key: key);
+  const ImageUpload({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    print("ImageUpload");
     return Scaffold(
       appBar: AppBar(
-        title: Text('Image Upload'),
+        title: const Text('Image Upload'),
       ),
       body: Center(
-        child: RaisedButton(
+        child: ElevatedButton(
           onPressed: () {
             uploadFile();
           },
-          child: Text('Upload'),
+          child: const Text('Upload'),
         ),
       ),
     );
